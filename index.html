@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mata Mata</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        html, body{
+            height: 100%;
+        }
+        #quadro{
+            height: 80%;
+            position:relative;
+            overflow: hidden;
+        }
+        #score{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: fit-content;
+            z-index: 100;
+            color: #600;
+            font-weight: bold;
+            font-size: 30px;
+        }
+        .invasor, .bonzinho{
+            width: 80px;
+            height: 80px;
+            background-color: coral;
+        }
+        .bonzinho{
+            background-color: crimson;
+        }
+    </style>
+
+</head>
+<body id="jogo">
+
+    <div class="h-100 row align-items-center px-2">
+        <div id="quadro" class="col-md-10 offset-md-1 border border-secondary">
+            <div id="score"></div>
+            <div id="inv1" class="invasor"></div>
+            <div id="inv2" class="invasor"></div>
+            <div id="inv3" class="invasor"></div>
+            <div id="inv4" class="invasor"></div>
+            <div id="inv5" class="invasor"></div>
+            <div id="bom1" class="bonzinho"></div>
+            <div id="bom2" class="bonzinho"></div>      
+        </div>
+    </div>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <script>
+
+        /* --------------------------------------------- 
+                    VARIÁVEIS E FUNÇÕES 
+        ------------------------------------------------*/
+        //lista com os invasores
+        const invasores = document.getElementsByClassName('invasor')
+        //lista com os bonzinhos
+        const bonzinhos = document.getElementsByClassName('bonzinho')
+        //largura do quadro
+        const larguraQuadro = document.getElementById('quadro').offsetWidth
+        //pontuação
+        var score = 0
+        //posicionamento em X e Y dos diversos objetos
+        var posX, posY 
+
+
+        //função para posicionar os elementos, recebe argumento
+        // el que é um determinado elemento do HTML
+        function posicElement(el)
+        {
+            posX = Math.random()*1000
+            posY = Math.random()*400
+
+            el.style.position = 'absolute'
+            el.style.left = -posX + 'px'
+            el.style.top = posY + 'px'
+        }
+
+
+        //função que desloca os elementos constantemente
+        //recebe elemento, velocidade deslocamento
+        function moveElemento(el, veloc, inc)
+        {   
+            //setInterval executa constantemente
+            var tempo = setInterval(function(){
+                veloc += inc;
+                el.style.left = veloc + 'px'
+                //Se veloc for maior q o quadro OU
+                //elemento tiver a classe 'morto'
+                if(veloc > larguraQuadro || el.classList.contains('morto'))
+                {
+                    posicElement(el)
+                    el.classList.remove('morto')
+                    veloc = -Math.random()*500;
+                    //sorteia de 1 a 30
+                    inc = Math.random()*29+1
+                }
+            }, 20)
+        }
+       
+        //Ao clicar nos invasores, soma score
+        //e reinicia o invasor
+        function mataInvasor(el)
+        {
+            score += 10
+            document.getElementById('score').innerText = score
+            //acrescenta a classe 'morto'
+            el.classList.add('morto')
+        }
+
+        //Ao clicar nos bonzinhos, diminui score
+        //e reinicia o bonzinho
+        function mataBonzinho(el)
+        {
+            score -= 50
+            document.getElementById('score').innerText = score
+            
+        }
+
+
+        /* --------------------------------------------
+                    EVENTOS E EXECUÇÕES AUTOMÁTICAS 
+        -----------------------------------------------*/
+        document.getElementById('score').innerText = score
+
+        //aplica as funções nos invasores
+        for(let inv of invasores)
+        {
+            posicElement(inv)
+            moveElemento(inv,Math.random()*10, Math.random()*19+1)
+            inv.addEventListener('mousedown', function(){
+                mataInvasor(this)
+            })
+        }
+
+        //aplica as funções nos bonzinhos
+        for(let bom of bonzinhos)
+        {
+            posicElement(bom)
+            moveElemento(bom,Math.random()*10, Math.random()*19+1)
+            bom.addEventListener('mousedown', function(){
+                mataBonzinho(this)
+            })
+        }
+        
+
+
+    </script>
+</body>
+</html>
