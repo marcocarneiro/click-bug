@@ -10,7 +10,9 @@ const larguraQuadro = document.getElementById('quadro').offsetWidth
 //pontuação
 var score = 0
 //posicionamento em X e Y dos diversos objetos
-var posX, posY 
+var posX, posY
+
+var tmpRestante = 30;
 
 
 //função para posicionar os elementos, recebe argumento
@@ -111,4 +113,15 @@ for(let bom of bonzinhos)
         mataBonzinho(this)
     })
 }
+
+//Contagem regressiva
+setTimeout(function () {
+    alert('TEMPO ESGOTADO!! SUA PONTUAÇÃO FOI DE ' + score)
+    document.location.reload(true);
+}, 30000);
+
+var tempoRestante = setInterval(() => {
+    tmpRestante --
+    document.getElementById('temporest').innerText = tmpRestante    
+}, 1000);
         
