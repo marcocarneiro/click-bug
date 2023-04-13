@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,17 +19,10 @@
             background-image: url('imagens/bg.png');
             background-size: cover;
         }
-        #score{
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: fit-content;
-            z-index: 100;
-            color: #600;
-            font-weight: bold;
-            font-size: 30px;
-        }
+        
         .invasor, .bonzinho{
+            position: absolute;
+            left: -1000px;
             width: 80px;
             height: 80px;
             background-image: url('imagens/invasor.png');
@@ -39,6 +32,19 @@
             background-color: crimson;
         }
 
+        #score{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: fit-content;
+            z-index: 100;
+            color: #600;
+            font-weight: bold;
+            font-size: 30px;
+            pointer-events: none;
+            user-select: none;
+        }
+
         #pts100{
             display: block;
             width: 50px;
@@ -46,24 +52,49 @@
             left: -300px;
             top: 300px;
         }
+
+        #splash{
+            position: absolute;
+            left: -1000px;
+            top: 0;
+            /* desabilita ao clique */
+            pointer-events: none;
+        }
+
+        #contagem{
+            padding: 0 20px;
+            user-select: none;
+            font-weight: bold;
+        }
     </style>
 
 </head>
 <body id="jogo">
 
-    <div class="h-100 row align-items-center px-2">        
+    <div class="h-100 d-flex align-items-center">        
         <div id="quadro" class="col-md-10 offset-md-1 border border-secondary">
-            <div id="contagem"><span id="infoTR" class="fw-bold"></span> 
-                segundos. Tempo restante: <span id="temporest"></span>
+            
+            <div id="contagem">
+                <span id="infoTR" class="fw-bold"></span> 
+                segundos. Tempo restante: 
+                <span id="temporest"></span>                
             </div>
-            <div id="score"></div>
+
+            <div id="score">0</div>
             <div id="inv1" class="invasor"></div>
             <div id="inv2" class="invasor"></div>
             <div id="inv3" class="invasor"></div>
             <div id="inv4" class="invasor"></div>
             <div id="bom1" class="bonzinho"></div>
+            <div id="bom2" class="bonzinho"></div>
+            <img src="imagens/splash.gif" id="splash">
 
-            <img src="imagens/pontos100.png" id="pts100">     
+            <img src="imagens/pontos100.png" id="pts100">
+            
+            <div class="text-center w-100 pb-2 position-absolute bottom-0">
+                <strong>Se acertar um inseto bonzinho perde 50 pontos</strong><br>
+                Developed by Marco Carneiro
+            </div>
         </div>
     </div>
     

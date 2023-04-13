@@ -1,118 +1,151 @@
 /* 
 ---------------------------------------------------
-    VARIÁVEIS E FUNÇÕES
+    FUNÇÕES
 ---------------------------------------------------
- */
+*/
 
-//lista com os invasores
-let invasores = document.getElementsByClassName('invasor')
-//lista com os "bonzinhos"
-let bonzinhos = document.getElementsByClassName('bonzinho')
+//Função para posicionar os elementos na tela
+//recebe o parâmetro el q. informa 
+//qual elemento se desloca
+const posicElemento = (el)=>{
+    //sorteia um número p/ os posicionamentos
+    let posX = Math.floor(Math.random()*960 + 40)
+    let posY = Math.floor(Math.random()*alturaQuadro/2 + 40)
 
-let score = 0
-let tempoRestante = 40
-
-let larguraQuadro = document.getElementById('quadro').offsetWidth
-
-
-//Função para posicionar um elemento
-//recebe parâmetro el que informa o elemento
-const posicElement = (el) => {
-    let posX = Math.floor(Math.random()*1000)
-    let posY = Math.floor(Math.random()*400)
     el.style.position = 'absolute'
-    el.style.left = -posX+'px'
-    el.style.top = posY+'px'
+    el.style.left = -posX + 'px'
+    el.style.top =  posY + 'px'
 }
 
-//Desloca os elementos na tela
-//recebe parâmetros elemento, velocidade, incremento
+//Função para deslocar os elementos na tela
+//parâmetros elemento, velocidade e incremento
 const moveElemento = (el, veloc, inc)=> {
-    //executa a cada x milissegundos
-    const anima = setInterval(() => {
+    //setInterval - repete função constantemente
+    const anima = setInterval( ()=>{
         veloc = veloc + inc
-        el.style.left = veloc +'px'
-        //verifica se elemento saiu do quadro 
-        //OU se foi clicado (classe "morto")
-        //retorna para uma posição 
-        //à esquerda quadro (re-entra)
+        el.style.left = veloc + 'px'
+
+        //verifica se saiu do quadro OU se possui
+        //a classe "morto", sai do quadro e retorna
         if(veloc > larguraQuadro || el.classList.contains('morto')){
-            //sorteia um valor entre -50 e -500
-            veloc = -Math.random()*450+50
-            inc = Math.random()*40+10
-            posicElement(el)
+            //redefine a velocidade e incremento
+            veloc = -Math.random()*400 + 80            
+            inc = Math.random()*20 + 5
+            posicElemento(el)
+            //remove a classe "morto" do elemento
             el.classList.remove('morto')
         }
-        //Adiciona atributo velocidade para
-        //consulta no código JS
+        //adiciona atributo "velocidade"
+        //aos elementos com o valor de incremento
         el.setAttribute('velocidade', inc)
-    }, 40);    
+    },40 )    
 }
 
-
-//ao clicar nos insetos
-const clickBug = (el)=> {
-    //Adiciona a classe "morto" ao inseto
-    el.classList.add('morto')
-    //adiciona 10 pts ao score
-    score += 10
-    //se o inseto clicado for "bonzinho" perde 50 pontos
+//Função para clicar no inseto - matar o inseto
+const clickBug = (el)=>{
+    let splash = document.getElementById('splash')
+    //captura posição do inseto ao ser clicado
+    let left = el.style.left
+    let top = el.style.top
+    //posiciona splash na mesma posição
+    splash.style.left = left
+    splash.style.top = top
+    //recarrega o gif animado
+    splash.src = `${splash.src}?v${Math.random()}`
+    
+    let ponto = 10
+    //se velocidade for maior que 20
+    //ponto vale 100 e mostra a imagem "+100" (somente invasores)
+    if(el.getAttribute('velocidade') > 20 && el.classList.contains('invasor') ){
+        ponto = 100
+        //exibe a imagem +100 na posição do inseto
+        let img100 = document.getElementById('pts100')
+        img100.style.left = el.style.left
+        img100.style.top = el.style.top
+        //após 1/2 segundo muda o LEFT de img100 
+        //para '-5000px' (oculta a imagem)
+        setTimeout(()=>{
+            img100.style.left = '-5000px'
+        }, 500)
+    }
+    //se elemento for "bonzinho" - classe bonzinho
+    //pontuação vale -50
     if(el.classList.contains('bonzinho')){
-        score -= 60
+        ponto = -50
     }
+    
+    //soma na pontuação geral e remove da tela
+    //adiciona a classe "morto"
+    score += ponto
+    el.classList.add('morto')
     document.getElementById('score').innerText = score
-    //Se velocidade for maior que 20, faz 100 pontos
-    //apenas nos insetos que tenham a classe "invasor"
-    if(el.getAttribute('velocidade')>20 && el.classList.contains('invasor')){
-        score += 100
-        //esconde +100 pontos após 1/2 segundo
-        let pts100 = document.getElementById('pts100')
-        pts100.style.left = el.style.left
-        pts100.style.top = el.style.top
-        /* const mostra100pts = setInterval(() => {
-            pts100.style.left = '-300px'
-            //interrompe o setInterval
-            clearInterval(mostra100pts)
-        }, 500); */
-        const mostra100pts = setTimeout(() => {
-            pts100.style.left = '-300px'
-        }, 500);
-    }
 }
-
 
 
 
 
 /* 
-------------------------------------------------------
-        EVENTOS E EXECUÇÕES AUTOMÁTICAS 
-------------------------------------------------------
- */
+---------------------------------------------------
+    VARIÁVEIS, EVENTOS E EXECUÇÕES AUTOMÁTICAS
+---------------------------------------------------
+*/
 
-for(inv of invasores){
-    posicElement(inv)
-    moveElemento(inv, Math.random()*10, Math.random()*19+1)
-    //evt.target = elemento q executa o evento - inseto clicado
-    inv.addEventListener('mousedown', (evt)=>{clickBug(evt.target)})
+//Variável com a lista de invasores (baseado na classe "invasor")
+let invasores = document.querySelectorAll('.invasor')
+
+//Variável com a lista de invasores (baseado na classe "bonzinho")
+let bonzinhos = document.querySelectorAll('.bonzinho')
+
+let score = 0
+
+//Tempo para a rodada, modifique a duração do jogo aqui
+let tempoRestante = 30
+
+//Largura da tela. Importante para detectar se o 
+//inseto saiu de cena
+let larguraQuadro = document.getElementById('quadro').offsetWidth
+
+//Altura do quadro
+let alturaQuadro = document.getElementById('quadro').offsetHeight
+
+//Comportamento de TODOS os invasores
+for (const inv of invasores) {
+    let velocInicio = Math.floor(Math.random()*20 + 5)
+    let incInicio = Math.floor(Math.random()*10 + 5)
+    posicElemento(inv)
+    moveElemento(inv, velocInicio, incInicio)
+    inv.addEventListener('mousedown', ()=>{ clickBug(inv) })
 }
 
-for(bom of bonzinhos){
-    posicElement(bom)
-    moveElemento(bom, Math.random()*10, Math.random()*19+1)
-    bom.addEventListener('mousedown', (evt)=>{clickBug(evt.target)})
+//Comportamento de TODOS os bonzinhos
+for (const bom of bonzinhos) {
+    let velocInicio = Math.floor(Math.random()*20 + 5)
+    let incInicio = Math.floor(Math.random()*10 + 5)
+    posicElemento(bom)
+    moveElemento(bom, velocInicio, incInicio)
+    bom.addEventListener('mousedown', ()=>{ clickBug(bom) })
 }
 
-//Contagem regressiva
-setTimeout(() => {
-    //Avisa ao usuário o FIM DO TEMPO
-    alert('TEMPO ESGOTADO!!!')
-    //Recarrega a página - semelhante a F5
-    location.reload(true)
-}, tempoRestante*1000);
 
-//A cada segundo mostra o tempo restante
-const mostraTempo = setInterval(() => {    
+document.getElementById('infoTR').innerText = tempoRestante
+document.getElementById('temporest').innerText = tempoRestante
+//executa a cada segundo até atingir o valor
+//da variável tempoRestante SETINTERVAL
+//Após isso GAMEOVER
+let tempo = tempoRestante
+const tempoGame = setInterval( ()=>{
+    //Mostra o tempo nos spans infoTR e temporest
     document.getElementById('infoTR').innerText = tempoRestante
-    document.getElementById('temporest').innerText = tempoRestante --
-}, 1000)
+    document.getElementById('temporest').innerText = --tempo
+    //se tempo for igual a 0, 
+    //fim de jogo e recarrega a página
+    if(tempo == -1){
+        alert('GAMEOVER')
+        //RECARREGA A PÁGINA (F5)
+        location.reload(true)
+    }
+
+},1000)
+
+
+
