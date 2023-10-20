@@ -11,12 +11,13 @@
     <style>
         html, body{
             height: 100%;
+            background-color: #000;
         }
         #quadro{
             height: 80%;
             position:relative;
             overflow: hidden;
-            background-image: url('imagens/bg.png');
+            background-image: url('imagens/bg.jpg');
             background-size: cover;
         }
         
@@ -25,6 +26,9 @@
             left: -1000px;
             width: 80px;
             height: 80px;
+        }
+
+        .invasor{
             background-image: url('imagens/invasor.png');
         }
         .bonzinho{
@@ -32,15 +36,22 @@
             background-color: crimson;
         }
 
+        #logo{
+            width: 30%;
+            pointer-events: none;
+            user-select: none;
+        }
+        #logo img{
+            width: 100%;
+            pointer-events: none;
+            user-select: none;
+        }
+
         #score{
-            position: absolute;
-            top: 10px;
-            right: 10px;
             width: fit-content;
             z-index: 100;
-            color: #600;
+            color: #f00;
             font-weight: bold;
-            font-size: 30px;
             pointer-events: none;
             user-select: none;
         }
@@ -64,7 +75,7 @@
         #contagem{
             padding: 0 20px;
             user-select: none;
-            font-weight: bold;
+            color: #fff;
         }
     </style>
 
@@ -73,14 +84,18 @@
 
     <div class="h-100 d-flex align-items-center">        
         <div id="quadro" class="col-md-10 offset-md-1 border border-secondary">
-            
-            <div id="contagem">
-                <span id="infoTR" class="fw-bold"></span> 
-                segundos. Tempo restante: 
-                <span id="temporest"></span>                
+
+            <div id="cabec" class="p-3 d-flex justify-content-between">
+                <img src="imagens/logo.png" id="logo">            
+                <div id="contagem">
+                    <span id="infoTR"></span> 
+                    segundos. Tempo restante: 
+                    <span id="temporest" class="fs-4 text"></span>                
+                </div>
+                <div id="score" class="fw-bold fs-1 text">0</div>
             </div>
 
-            <div id="score">0</div>
+            
             <div id="inv1" class="invasor"></div>
             <div id="inv2" class="invasor"></div>
             <div id="inv3" class="invasor"></div>
@@ -91,8 +106,8 @@
 
             <img src="imagens/pontos100.png" id="pts100">
             
-            <div class="text-center w-100 pb-2 position-absolute bottom-0">
-                <strong>Se acertar um inseto bonzinho perde 50 pontos</strong><br>
+            <div class="text-center text-light fs-6 text w-100 pb-2 position-absolute bottom-0">
+                Se acertar uma fada perde 50 pontos<br>
                 Developed by Marco Carneiro
             </div>
         </div>
