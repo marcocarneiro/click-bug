@@ -10,11 +10,18 @@
 const posicElemento = (el)=>{
     //sorteia um número p/ os posicionamentos
     let posX = Math.floor(Math.random()*960 + 40)
-    let posY = Math.floor(Math.random()*alturaQuadro/2 + 40)
+    let posY = Math.floor(Math.random()*alturaQuadro/2 + 160)
+
+    //sorteia valor para tamanho
+    let escala = Math.random()*0.4 + 1
 
     el.style.position = 'absolute'
     el.style.left = -posX + 'px'
     el.style.top =  posY + 'px'
+
+    //aplica novo tamanho
+    el.style.transform = 'scale('+escala+')'
+
 }
 
 //Função para deslocar os elementos na tela

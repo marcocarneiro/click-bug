@@ -54,9 +54,7 @@ const tempoGame = setInterval( ()=>{
     //se tempo for igual a 0, 
     //fim de jogo e recarrega a página
     if(tempo == -1){
-        alert('GAMEOVER')
-        //RECARREGA A PÁGINA (F5)
-        location.reload(true)
+        window.location.assign('gameover.html')
     }
 
 },1000)

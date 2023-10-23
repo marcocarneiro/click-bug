@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HALLOWEEN KILLERS</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        html, body{
+            height: 100%;
+            background-color: #000;
+        }
+        #quadro{
+            height: 80%;
+            position:relative;
+            overflow: hidden;
+            background-image: url('imagens/bg.jpg');
+            background-size: cover;
+        }
+        
+        .invasor, .bonzinho{
+            position: absolute;
+            left: -1000px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .invasor{
+            background-image: url('imagens/invasor.gif');
+            opacity: 0.5;
+        }
+        .bonzinho{
+            background: none;
+            background-color: crimson;
+        }
+
+        #logo{
+            width: 30%;
+            pointer-events: none;
+            user-select: none;
+        }
+        #logo img{
+            width: 100%;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        #score{
+            width: fit-content;
+            z-index: 100;
+            color: #f00;
+            font-weight: bold;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        #pts100{
+            display: block;
+            width: 50px;
+            position: absolute;
+            left: -300px;
+            top: 300px;
+        }
+
+        #splash{
+            position: absolute;
+            left: -1000px;
+            top: 0;
+            /* desabilita ao clique */
+            pointer-events: none;
+        }
+
+        #contagem{
+            padding: 0 20px;
+            user-select: none;
+            color: #fff;
+        }
+    </style>
+
+</head>
+<body id="jogo">
+
+    <div class="h-100 d-flex align-items-center">        
+        <div id="quadro" class="col-md-10 offset-md-1 border border-secondary">
+
+            <div id="cabec" class="p-3 d-flex justify-content-between">
+                <img src="imagens/logo.png" id="logo">            
+                <div id="contagem">
+                    <span id="infoTR"></span> 
+                    segundos. Tempo restante: 
+                    <span id="temporest" class="fs-4 text"></span>                
+                </div>
+                <div id="score" class="fw-bold fs-1 text">0</div>
+            </div>
+
+            
+            <div id="inv1" class="invasor"></div>
+            <div id="inv2" class="invasor"></div>
+            <div id="inv3" class="invasor"></div>
+            <div id="inv4" class="invasor"></div>
+            <div id="bom1" class="bonzinho"></div>
+            <div id="bom2" class="bonzinho"></div>
+            <img src="imagens/splash.gif" id="splash">
+
+            <img src="imagens/pontos100.png" id="pts100">
+            
+            <div class="text-center text-light fs-6 text w-100 pb-2 position-absolute bottom-0">
+                Se acertar uma fada perde 50 pontos<br>
+                Developed by Marco Carneiro
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <script src="functions.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
