@@ -52,8 +52,10 @@ const tempoGame = setInterval( ()=>{
     document.getElementById('infoTR').innerText = tempoRestante
     document.getElementById('temporest').innerText = --tempo
     //se tempo for igual a 0, 
-    //fim de jogo e recarrega a página
+    //salva os pontos, fim de jogo e carrega página gameover
+    //https://www.w3schools.com/html/html5_webstorage.asp
     if(tempo == -1){
+        localStorage.pontuacao = score
         window.location.assign('gameover.html')
     }
 
