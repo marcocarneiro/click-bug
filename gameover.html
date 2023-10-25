@@ -12,14 +12,14 @@
         html, body{
             height: 100%;
             background-color: #000;
+            background-image: url('imagens/bg-game-over.jpg');
+            background-size: cover;
         }
         #caixa{
             height: 80%;
             position:relative;
             top: 10%;
-            overflow: hidden;
-            background-image: url('imagens/bg.jpg');
-            background-size: cover;
+            overflow: hidden;            
         }
     </style>
 
@@ -30,7 +30,7 @@
         <img src="imagens/logo.png" alt="HALLOWEEN KILLERS" width="40%">
         <p class="text-center text-light">
             <span class="fs-1 text">GAME OVER<br>
-            VOCÊ FEZ <span id="pontos" class="fw-bold text-danger"></span> PONTOS!!</span><br>
+            VOCÊ FEZ <span id="pontos" class="fw-bold text-warning"></span> PONTOS!!</span><br>
 
             <a href="index.html" class="btn btn-dark btn-lg">JOGAR NOVAMENTE!</a>
         </p>
