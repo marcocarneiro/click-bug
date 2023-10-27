@@ -1,4 +1,3 @@
-//ARMAZENAR ARRAY NO LOCALSTORAGE: https://pt.stackoverflow.com/questions/329223/armazenar-um-array-de-objetos-em-um-local-storage-com-js
 //TELA CHEIA:  https://horadecodar.com.br/como-ativar-a-tela-cheia-do-navegador-com-javascript/
 //https://www.joemaster.com.br/tutoriais/como-abrir-tela-inteira-do-navegador-com-javascript/
 
