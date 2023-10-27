@@ -45,6 +45,22 @@ const moveElemento = (el, veloc, inc)=> {
     },40 )    
 }
 
+const playSplash =  ()=>{
+    var audio = new Audio('assets/splash.mp3')
+    audio.play()
+}
+
+const playHealpop =  ()=>{
+    var audio = new Audio('assets/healpop.mp3')
+    audio.play()
+}
+
+const playPop =  ()=>{
+    var audio = new Audio('assets/pop.mp3')
+    audio.play()
+}
+
+
 //Função para clicar no inseto - matar o inseto
 const clickBug = (el)=>{
     let splash = document.getElementById('splash')
@@ -83,4 +99,13 @@ const clickBug = (el)=>{
     score += ponto
     el.classList.add('morto')
     document.getElementById('score').innerText = score
+
+    if(el.classList.contains('fantasma-2')){
+        playPop()
+    }else if(el.classList.contains('bonzinho')){
+        playHealpop()
+    }else{
+        playSplash()
+    }
+    
 }

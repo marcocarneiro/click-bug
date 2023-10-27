@@ -12,13 +12,14 @@
         html, body{
             height: 100%;
             background-color: #000;
+            overflow: hidden;
         }
         #caixa{
             height: 80%;
             position:relative;
             top: 10%;
             overflow: hidden;
-            background-image: url('imagens/bg.jpg');
+            background-image: url('assets/bg.jpg');
             background-size: cover;
         }
         .fscreen{
@@ -31,8 +32,8 @@
 <body id="corpo">
 
     <div id="caixa" class="d-flex flex-column justify-content-center align-items-center">
-        <img src="imagens/logo.png" alt="HALLOWEEN KILLERS" class="d-none d-sm-none d-md-block d-lg-block w-50">
-        <img src="imagens/logo.png" alt="HALLOWEEN KILLERS" class="d-sm-block d-md-none d-lg-none w-100">
+        <img src="assets/logo.png" alt="HALLOWEEN KILLERS" class="d-none d-sm-none d-md-block d-lg-block w-50">
+        <img src="assets/logo.png" alt="HALLOWEEN KILLERS" class="d-sm-block d-md-none d-lg-none w-100">
         <p class="text-center text-light">
             Você tem 30 segundos para matar a maior quantidade de fantasmas.<br>
             APENAS CLIQUE NO FANTASMA.<br>
@@ -68,6 +69,14 @@
                 }
             }
             loadGame()
+            playTrilha()
+        }
+
+        const playTrilha = ()=>{
+            var audio = new Audio('assets/spooky-halloween-effects.mp3')
+            var audio2 = new Audio('assets/barulhos.mp3')
+            audio.play()
+            audio2.play()
         }
     </script>
 </body>
